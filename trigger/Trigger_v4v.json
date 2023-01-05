@@ -1,0 +1,24 @@
+{
+	"name": "Trigger_v4v",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "CopyPipeline_v4v",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 2,
+				"startTime": "2023-01-05T05:31:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}
