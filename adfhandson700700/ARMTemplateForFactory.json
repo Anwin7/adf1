@@ -10,6 +10,22 @@
 		"AzureBlobStorage1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
+		"Trigger_v4v_properties_CopyPipeline_v4v_parameters_WindowStart": {
+			"type": "string",
+			"defaultValue": "j"
+		},
+		"Trigger_v4v_properties_CopyPipeline_v4v_parameters_WindowEnd": {
+			"type": "string",
+			"defaultValue": "k"
+		},
+		"trigger1_properties_pipeline_parameters_WindowStart": {
+			"type": "string",
+			"defaultValue": "j"
+		},
+		"trigger1_properties_pipeline_parameters_WindowEnd": {
+			"type": "string",
+			"defaultValue": "k"
 		}
 	},
 	"variables": {
@@ -48,7 +64,16 @@
 								"type": "BinarySource",
 								"storeSettings": {
 									"type": "AzureBlobStorageReadSettings",
-									"recursive": true
+									"recursive": true,
+									"modifiedDatetimeStart": {
+										"value": "@pipeline().parameters.WindowStart",
+										"type": "Expression"
+									},
+									"modifiedDatetimeEnd": {
+										"value": "@pipeline().parameters.WindowEnd",
+										"type": "Expression"
+									},
+									"deleteFilesAfterCompletion": false
 								},
 								"formatSettings": {
 									"type": "BinaryReadSettings"
@@ -57,7 +82,8 @@
 							"sink": {
 								"type": "BinarySink",
 								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings"
+									"type": "AzureBlobStorageWriteSettings",
+									"copyBehavior": "PreserveHierarchy"
 								}
 							},
 							"enableStaging": false,
@@ -82,6 +108,14 @@
 				"policy": {
 					"elapsedTimeMetric": {},
 					"cancelAfter": {}
+				},
+				"parameters": {
+					"WindowStart": {
+						"type": "string"
+					},
+					"WindowEnd": {
+						"type": "string"
+					}
 				},
 				"annotations": []
 			},
@@ -161,7 +195,10 @@
 							"referenceName": "CopyPipeline_v4v",
 							"type": "PipelineReference"
 						},
-						"parameters": {}
+						"parameters": {
+							"WindowStart": "[parameters('Trigger_v4v_properties_CopyPipeline_v4v_parameters_WindowStart')]",
+							"WindowEnd": "[parameters('Trigger_v4v_properties_CopyPipeline_v4v_parameters_WindowEnd')]"
+						}
 					}
 				],
 				"type": "ScheduleTrigger",
@@ -173,6 +210,41 @@
 						"endTime": "2023-01-06T06:29:29Z",
 						"timeZone": "UTC"
 					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/CopyPipeline_v4v')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/trigger1')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipeline": {
+					"pipelineReference": {
+						"referenceName": "CopyPipeline_v4v",
+						"type": "PipelineReference"
+					},
+					"parameters": {
+						"WindowStart": "[parameters('trigger1_properties_pipeline_parameters_WindowStart')]",
+						"WindowEnd": "[parameters('trigger1_properties_pipeline_parameters_WindowEnd')]"
+					}
+				},
+				"type": "TumblingWindowTrigger",
+				"typeProperties": {
+					"frequency": "Minute",
+					"interval": 5,
+					"startTime": "2023-01-05T07:09:00Z",
+					"endTime": "2023-01-06T07:09:00Z",
+					"delay": "00:00:00",
+					"maxConcurrency": 50,
+					"retryPolicy": {
+						"intervalInSeconds": 30
+					},
+					"dependsOn": []
 				}
 			},
 			"dependsOn": [

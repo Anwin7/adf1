@@ -11,6 +11,22 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
 		},
+		"Trigger_v4v_properties_CopyPipeline_v4v_parameters_WindowStart": {
+			"type": "string",
+			"defaultValue": "j"
+		},
+		"Trigger_v4v_properties_CopyPipeline_v4v_parameters_WindowEnd": {
+			"type": "string",
+			"defaultValue": "k"
+		},
+		"trigger1_properties_pipeline_parameters_WindowStart": {
+			"type": "string",
+			"defaultValue": "j"
+		},
+		"trigger1_properties_pipeline_parameters_WindowEnd": {
+			"type": "string",
+			"defaultValue": "k"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -40,6 +56,18 @@
 					},
 					"AzureBlobStorage1_connectionString": {
 						"value": "[parameters('AzureBlobStorage1_connectionString')]"
+					},
+					"Trigger_v4v_properties_CopyPipeline_v4v_parameters_WindowStart": {
+						"value": "[parameters('Trigger_v4v_properties_CopyPipeline_v4v_parameters_WindowStart')]"
+					},
+					"Trigger_v4v_properties_CopyPipeline_v4v_parameters_WindowEnd": {
+						"value": "[parameters('Trigger_v4v_properties_CopyPipeline_v4v_parameters_WindowEnd')]"
+					},
+					"trigger1_properties_pipeline_parameters_WindowStart": {
+						"value": "[parameters('trigger1_properties_pipeline_parameters_WindowStart')]"
+					},
+					"trigger1_properties_pipeline_parameters_WindowEnd": {
+						"value": "[parameters('trigger1_properties_pipeline_parameters_WindowEnd')]"
 					}
 				}
 			},
