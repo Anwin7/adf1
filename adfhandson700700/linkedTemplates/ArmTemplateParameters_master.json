@@ -11,6 +11,12 @@
 		"AzureBlobStorage2_connectionString": {
 			"value": ""
 		},
+		"crimefile2_connectionString": {
+			"value": ""
+		},
+		"Crime_src_properties_typeProperties_url": {
+			"value": "https://data.cityofchicago.org/resource/crimes.json?$limit=50000"
+		},
 		"containerUri": {
 			"value": ""
 		},
