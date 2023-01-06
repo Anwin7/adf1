@@ -1,0 +1,30 @@
+{
+	"name": "crimedata",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "crime_data2",
+						"type": "DatasetReference"
+					},
+					"name": "crimedatafile"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "extractdatetime"
+				}
+			],
+			"scriptLines": [
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> crimedatafile",
+				"crimedatafile derive(Date = left(date,10),",
+				"          Time = right(date,8)) ~> extractdatetime"
+			]
+		}
+	}
+}
