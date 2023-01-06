@@ -16,6 +16,9 @@
 			"transformations": [
 				{
 					"name": "extractdatetime"
+				},
+				{
+					"name": "dayofweekcount"
 				}
 			],
 			"scriptLines": [
@@ -23,7 +26,9 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> crimedatafile",
 				"crimedatafile derive(Date = left(date,10),",
-				"          Time = right(date,8)) ~> extractdatetime"
+				"          Time = right(date,8)) ~> extractdatetime",
+				"extractdatetime aggregate(groupBy(Date),",
+				"     iucr = count(iucr)) ~> dayofweekcount"
 			]
 		}
 	}
