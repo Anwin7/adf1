@@ -9,7 +9,7 @@
 		"type": "AzureSqlTable",
 		"schema": [],
 		"typeProperties": {
-			"schema": "2022crimedata"
+			"schema": "2016crimedata"
 		}
 	}
 }
