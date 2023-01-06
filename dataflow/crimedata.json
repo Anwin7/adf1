@@ -19,6 +19,9 @@
 				},
 				{
 					"name": "dayofweekcount"
+				},
+				{
+					"name": "only2016"
 				}
 			],
 			"scriptLines": [
@@ -27,8 +30,9 @@
 				"     ignoreNoFilesFound: false) ~> crimedatafile",
 				"crimedatafile derive(Date = left(date,10),",
 				"          Time = right(date,8)) ~> extractdatetime",
-				"extractdatetime aggregate(groupBy(Date),",
-				"     iucr = count(iucr)) ~> dayofweekcount"
+				"extractdatetime aggregate(groupBy(Dayofweek = ERROR_FUNCTION('dayofweek(todate(extractdatetime@date,__SINGLE_QUOTE__yyyy-mm-dd__SINGLE_QUOTE__))__SINGLE_QUOTE__')),",
+				"     iucr = count(iucr)) ~> dayofweekcount",
+				"extractdatetime filter(year(toDate(extractdatetime@Date))==2016) ~> only2016"
 			]
 		}
 	}
