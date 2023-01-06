@@ -8,17 +8,8 @@
 		"AzureBlobStorage1_connectionString": {
 			"value": ""
 		},
-		"Trigger_v4v_properties_CopyPipeline_v4v_parameters_WindowStart": {
-			"value": "j"
-		},
-		"Trigger_v4v_properties_CopyPipeline_v4v_parameters_WindowEnd": {
-			"value": "k"
-		},
-		"trigger1_properties_pipeline_parameters_WindowStart": {
-			"value": "j"
-		},
-		"trigger1_properties_pipeline_parameters_WindowEnd": {
-			"value": "k"
+		"AzureBlobStorage2_connectionString": {
+			"value": ""
 		},
 		"containerUri": {
 			"value": ""
