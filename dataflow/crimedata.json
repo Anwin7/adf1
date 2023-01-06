@@ -21,7 +21,7 @@
 					"name": "dayofweekcount"
 				},
 				{
-					"name": "only2016"
+					"name": "only2022"
 				}
 			],
 			"scriptLines": [
@@ -32,7 +32,7 @@
 				"          Time = right(date,8)) ~> extractdatetime",
 				"extractdatetime aggregate(groupBy(Dayofweek = ERROR_FUNCTION('dayofweek(todate(extractdatetime@date,__SINGLE_QUOTE__yyyy-mm-dd__SINGLE_QUOTE__))__SINGLE_QUOTE__')),",
 				"     iucr = count(iucr)) ~> dayofweekcount",
-				"extractdatetime filter(year(toDate(extractdatetime@Date))==2016) ~> only2016"
+				"extractdatetime filter(year(toDate(extractdatetime@Date))==2016) ~> only2022"
 			]
 		}
 	}
